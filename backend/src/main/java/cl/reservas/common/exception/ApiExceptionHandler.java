@@ -23,6 +23,16 @@ public class ApiExceptionHandler {
         return problem(HttpStatus.UNAUTHORIZED, "No autorizado", "Correo o contraseña incorrectos", "invalid-credentials");
     }
 
+    @ExceptionHandler(EmailNotVerifiedException.class)
+    ProblemDetail emailNotVerified(EmailNotVerifiedException exception) {
+        return problem(HttpStatus.FORBIDDEN, "Correo no verificado", exception.getMessage(), "email-not-verified");
+    }
+
+    @ExceptionHandler(InvalidTokenException.class)
+    ProblemDetail invalidToken(InvalidTokenException exception) {
+        return problem(HttpStatus.UNAUTHORIZED, "Token invalido", exception.getMessage(), "invalid-token");
+    }
+
     @ExceptionHandler(IllegalArgumentException.class)
     ProblemDetail badRequest(IllegalArgumentException exception) {
         return problem(HttpStatus.BAD_REQUEST, "Solicitud invalida", exception.getMessage(), "bad-request");
@@ -47,4 +57,3 @@ public class ApiExceptionHandler {
         return problem;
     }
 }
-

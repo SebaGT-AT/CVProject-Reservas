@@ -29,6 +29,12 @@ public class User {
     @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt;
 
+    @Column(name = "email_verified_at")
+    private Instant emailVerifiedAt;
+
+    @Column(name = "password_changed_at")
+    private Instant passwordChangedAt;
+
     protected User() {}
 
     public User(String name, String email, String passwordHash, Role role) {
@@ -48,5 +54,15 @@ public class User {
     public Role getRole() { return role; }
     public boolean isActive() { return active; }
     public Instant getCreatedAt() { return createdAt; }
-}
+    public Instant getEmailVerifiedAt() { return emailVerifiedAt; }
+    public boolean isEmailVerified() { return emailVerifiedAt != null; }
 
+    public void verifyEmail() {
+        if (emailVerifiedAt == null) emailVerifiedAt = Instant.now();
+    }
+
+    public void changePassword(String encodedPassword) {
+        this.passwordHash = encodedPassword;
+        this.passwordChangedAt = Instant.now();
+    }
+}

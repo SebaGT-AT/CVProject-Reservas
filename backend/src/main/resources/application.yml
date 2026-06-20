@@ -15,6 +15,9 @@ spring:
           time_zone: UTC
   flyway:
     enabled: true
+  mail:
+    host: ${MAIL_HOST:localhost}
+    port: ${MAIL_PORT:1025}
 server:
   shutdown: graceful
 management:
@@ -27,8 +30,18 @@ management:
       probes:
         enabled: true
 app:
+  frontend-url: ${FRONTEND_URL:http://localhost:5173}
+  mail:
+    delivery: ${MAIL_DELIVERY:log}
+    from: ${MAIL_FROM:no-reply@reservas.local}
   security:
     jwt:
       secret: ${JWT_SECRET:change-this-local-secret-with-at-least-32-characters}
       expiration-seconds: 900
+    refresh:
+      expiration-days: 30
+      secure-cookie: ${SECURE_COOKIES:false}
+    one-time-token:
+      verification-hours: 24
+      password-reset-minutes: 30
 

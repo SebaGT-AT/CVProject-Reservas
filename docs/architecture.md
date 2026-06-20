@@ -50,7 +50,7 @@ Una `Appointment` guarda inicio/fin, servicio, precio pactado y estado. El preci
 ## Seguridad
 
 - Contraseñas con BCrypt; nunca se registran ni se devuelven.
-- Access token JWT corto. Antes de produccion se incorpora refresh token rotativo en cookie `HttpOnly`, revocacion y limite de intentos.
+- Access token JWT corto en memoria y refresh token opaco rotativo en cookie `HttpOnly`; se almacenan hashes, hay revocacion y limite de intentos.
 - Autorizacion por rol y por propiedad del recurso. `PROFESSIONAL` solo administra su agenda; `CUSTOMER` solo sus citas; `ADMIN` opera soporte.
 - Secretos por variables de entorno o secret manager, nunca en Git.
 - CORS restringido por ambiente y cabeceras seguras habilitadas.
@@ -78,4 +78,3 @@ Queda detras de un puerto `CalendarProvider`. La cita interna es la fuente de ve
 - PostgreSQL administrado con backups y point-in-time recovery.
 - Correo transaccional administrado.
 - Logs JSON, metricas Micrometer, trazas y alertas por tasa de error/latencia.
-

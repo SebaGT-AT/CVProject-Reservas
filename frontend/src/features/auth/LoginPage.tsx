@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { Link, Navigate, useNavigate } from 'react-router-dom'
+import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom'
 import { api } from '../../lib/api'
 import { useAuth } from './auth-context'
 import type { AuthResponse } from './types'
@@ -10,6 +10,7 @@ type FormValues = { email: string; password: string }
 export function LoginPage() {
   const { authenticate, user } = useAuth()
   const navigate = useNavigate()
+  const location = useLocation()
   const [error, setError] = useState('')
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<FormValues>()
 
@@ -31,6 +32,7 @@ export function LoginPage() {
   return (
     <AuthShell title="Bienvenido de vuelta" subtitle="Tu agenda, tus clientes y tu día en un solo lugar.">
       <form onSubmit={handleSubmit(submit)} noValidate>
+        {typeof location.state?.notice === 'string' && <div className="alert alert-success" role="status">{location.state.notice}</div>}
         {error && <div className="alert alert-danger" role="alert">{error}</div>}
         <div className="mb-3">
           <label className="form-label" htmlFor="email">Correo</label>
@@ -47,7 +49,8 @@ export function LoginPage() {
         <button className="btn btn-primary w-100 py-2" disabled={isSubmitting}>
           {isSubmitting ? 'Ingresando…' : 'Ingresar'}
         </button>
-        <p className="text-center text-secondary mt-4 mb-0">¿Primera vez? <Link to="/registro">Crear cuenta</Link></p>
+        <div className="d-flex justify-content-between mt-4"><Link to="/registro">Crear cuenta</Link><Link to="/olvide-contrasena">Olvidé mi contraseña</Link></div>
+        <p className="text-center mt-3 mb-0"><Link to="/reenviar-verificacion">Reenviar verificación</Link></p>
       </form>
     </AuthShell>
   )

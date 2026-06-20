@@ -30,5 +30,6 @@ npm run dev
 - Frontend: `http://localhost:5173`
 - Salud: `http://localhost:8080/actuator/health`
 
-La guía incremental está en [docs/roadmap.md](docs/roadmap.md) y las decisiones técnicas en [docs/architecture.md](docs/architecture.md).
+En desarrollo, los enlaces de verificacion y recuperacion aparecen en el log del backend con el prefijo `DEV MAIL`. La configuracion SMTP está descrita en [docs/etapa-01-identidad.md](docs/etapa-01-identidad.md).
 
+La guía incremental está en [docs/roadmap.md](docs/roadmap.md), la identidad en [docs/etapa-01-identidad.md](docs/etapa-01-identidad.md) y las decisiones técnicas en [docs/architecture.md](docs/architecture.md).

@@ -4,12 +4,14 @@ import { Link, Navigate, useNavigate } from 'react-router-dom'
 import { api } from '../../lib/api'
 import { AuthShell } from './LoginPage'
 import { useAuth } from './auth-context'
-import type { AuthResponse, Role } from './types'
+import type { Role } from './types'
+
+type MessageResponse = { message: string }
 
 type FormValues = { name: string; email: string; password: string; role: Exclude<Role, 'ADMIN'> }
 
 export function RegisterPage() {
-  const { authenticate, user } = useAuth()
+  const { user } = useAuth()
   const navigate = useNavigate()
   const [error, setError] = useState('')
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<FormValues>({ defaultValues: { role: 'PROFESSIONAL' } })
@@ -19,9 +21,8 @@ export function RegisterPage() {
   async function submit(values: FormValues) {
     setError('')
     try {
-      const session = await api<AuthResponse>('/api/v1/auth/register', { method: 'POST', body: JSON.stringify(values) })
-      authenticate(session)
-      navigate('/dashboard')
+      const result = await api<MessageResponse>('/api/v1/auth/register', { method: 'POST', body: JSON.stringify(values) })
+      navigate('/login', { state: { notice: result.message } })
     } catch (caught) {
       setError(caught instanceof Error ? caught.message : 'No fue posible crear la cuenta')
     }

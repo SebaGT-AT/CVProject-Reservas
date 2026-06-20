@@ -2,17 +2,17 @@
 
 Cada etapa termina con migracion, pruebas, documentacion de API y una demo vertical.
 
-## 0. Fundacion (actual)
+## 0. Fundacion (completada)
 
 - Monorepo, PostgreSQL local, Flyway y perfiles de configuracion.
 - Registro/login JWT, roles base y pantalla inicial protegida.
 - Convenciones de errores, validacion y salud de la API.
 
-## 1. Identidad lista para produccion
+## 1. Identidad lista para produccion (completada)
 
-- Verificacion de correo, recuperacion de contraseña y refresh tokens rotativos.
-- Rate limiting, auditoria, cierre de sesiones y pruebas de seguridad.
-- Registro diferenciado para cliente y profesional.
+- Verificacion de correo, recuperacion de contraseña y refresh tokens rotativos. ✓
+- Rate limiting, auditoria, cierre de sesiones y pruebas de seguridad. ✓
+- Registro diferenciado para cliente y profesional. ✓
 
 ## 2. Profesionales y servicios
 
@@ -46,7 +46,6 @@ Cada etapa termina con migracion, pruebas, documentacion de API y una demo verti
 - Google Calendar OAuth y sincronizacion idempotente.
 - Webhooks y API publica versionada si el negocio lo requiere.
 
-## Siguiente sesion recomendada
+## Siguiente etapa recomendada
 
-Completar la etapa 1 con refresh token seguro y verificacion de correo. Luego implementar el perfil profesional antes del motor de disponibilidad.
-
+Implementar perfiles profesionales, especialidades y servicios antes del motor de disponibilidad.
