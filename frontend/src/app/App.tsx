@@ -10,6 +10,7 @@ import { ResendVerificationPage } from '../features/auth/ResendVerificationPage'
 import { ProfessionalPage } from '../features/professional/ProfessionalPage'
 import { PublicProfessionalPage } from '../features/professional/PublicProfessionalPage'
 import type { Role } from '../features/auth/types'
+import { SchedulePage } from '../features/scheduling/SchedulePage'
 
 function ProtectedRoute({ children, role }: { children: React.ReactNode; role?: Role }) {
   const { user, loading } = useAuth()
@@ -29,6 +30,7 @@ export function App() {
     <Route path="/p/:slug" element={<PublicProfessionalPage />} />
     <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
     <Route path="/perfil-profesional" element={<ProtectedRoute role="PROFESSIONAL"><ProfessionalPage /></ProtectedRoute>} />
+    <Route path="/configurar-agenda" element={<ProtectedRoute role="PROFESSIONAL"><SchedulePage /></ProtectedRoute>} />
     <Route path="*" element={<Navigate to="/dashboard" replace />} />
   </Routes>
 }

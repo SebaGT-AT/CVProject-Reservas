@@ -18,34 +18,37 @@ Cada etapa termina con migracion, pruebas, documentacion de API y una demo verti
 
 - Perfil publico, especialidades, zona horaria, servicios, precio y duracion. ✓
 
-## 3. Disponibilidad y citas
+## 3. Horarios y disponibilidad (completada)
 
-- Horario semanal y excepciones (feriados, vacaciones, bloqueos).
-- Motor de slots, anticipacion minima, ventana maxima y buffers.
+- Horario semanal y excepciones (feriados, vacaciones, bloqueos). ✓
+- Motor de slots, anticipacion minima, ventana maxima y buffers. ✓
+
+## 4. Citas
+
 - Reserva atomica sin solapamientos, cancelacion y transiciones de estado.
 - Historial de clientes y citas.
 
-## 4. Notificaciones
+## 5. Notificaciones
 
 - Confirmacion y recordatorios por correo.
 - Outbox, reintentos, plantillas y preferencias.
 
-## 5. Dashboard
+## 6. Dashboard
 
 - Reservas de hoy, clientes nuevos y horas disponibles.
 - Consultas optimizadas e indices; definiciones de metricas documentadas.
 
-## 6. Calidad comercial
+## 7. Calidad comercial
 
 - Suite E2E, accesibilidad, responsive, observabilidad y backups probados.
 - CI/CD, ambientes dev/staging/prod y revision OWASP ASVS.
 - Politicas de privacidad, terminos, retencion y eliminacion de datos.
 
-## 7. Integraciones
+## 8. Integraciones
 
 - Google Calendar OAuth y sincronizacion idempotente.
 - Webhooks y API publica versionada si el negocio lo requiere.
 
 ## Siguiente etapa recomendada
 
-Implementar horarios semanales, excepciones y el motor de disponibilidad antes de aceptar citas.
+Implementar citas con reserva atomica, estados, cancelaciones e historial de clientes.

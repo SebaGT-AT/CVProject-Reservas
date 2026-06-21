@@ -9,5 +9,6 @@ public interface ServiceOfferingRepository extends JpaRepository<ServiceOffering
     List<ServiceOffering> findAllByProfessionalIdOrderByCreatedAtDesc(UUID professionalId);
     List<ServiceOffering> findAllByProfessionalIdAndActiveTrueOrderByName(UUID professionalId);
     Optional<ServiceOffering> findByIdAndProfessionalId(UUID id, UUID professionalId);
+    Optional<ServiceOffering> findByIdAndProfessionalIdAndActiveTrue(UUID id, UUID professionalId);
     boolean existsByProfessionalIdAndActiveTrue(UUID professionalId);
 }

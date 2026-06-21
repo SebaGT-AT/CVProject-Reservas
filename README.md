@@ -32,4 +32,4 @@ npm run dev
 
 En desarrollo, los enlaces de verificacion y recuperacion aparecen en el log del backend con el prefijo `DEV MAIL`. La configuracion SMTP está descrita en [docs/etapa-01-identidad.md](docs/etapa-01-identidad.md).
 
-La guía incremental está en [docs/roadmap.md](docs/roadmap.md), la identidad en [docs/etapa-01-identidad.md](docs/etapa-01-identidad.md), los perfiles en [docs/etapa-02-profesionales-servicios.md](docs/etapa-02-profesionales-servicios.md) y las decisiones técnicas en [docs/architecture.md](docs/architecture.md).
+La guía incremental está en [docs/roadmap.md](docs/roadmap.md), la identidad en [docs/etapa-01-identidad.md](docs/etapa-01-identidad.md), los perfiles en [docs/etapa-02-profesionales-servicios.md](docs/etapa-02-profesionales-servicios.md), la disponibilidad en [docs/etapa-03-disponibilidad.md](docs/etapa-03-disponibilidad.md) y las decisiones técnicas en [docs/architecture.md](docs/architecture.md).

@@ -114,7 +114,8 @@ export function ProfessionalPage() {
         <p className="eyebrow">ESPACIO PROFESIONAL</p>
         <h1 className="profile-title">Tu vitrina y tus servicios.</h1>
         <p className="text-secondary">Configura lo que verán tus clientes antes de construir la agenda.</p>
-        {profile?.published && <Link to={`/p/${profile.slug}`} target="_blank" rel="noreferrer">Ver perfil público →</Link>}
+        <div className="d-flex flex-column align-items-start gap-2">{profile && <Link to="/configurar-agenda">Configurar horarios →</Link>}
+          {profile?.published && <Link to={`/p/${profile.slug}`} target="_blank" rel="noreferrer">Ver perfil público →</Link>}</div>
       </aside>
       <div className="col-lg-8">
         {notice && <div className="alert alert-success" role="status">{notice}</div>}
