@@ -39,11 +39,12 @@ Cada etapa termina con migracion, pruebas, documentacion de API y una demo verti
 - Reservas de hoy, clientes nuevos y horas disponibles. ✓
 - Consultas optimizadas e indices; definiciones de metricas documentadas. ✓
 
-## 7. Calidad comercial
+## 7. Calidad comercial (línea base completada)
 
-- Suite E2E, accesibilidad, responsive, observabilidad y backups probados.
-- CI/CD, ambientes dev/staging/prod y revision OWASP ASVS.
-- Politicas de privacidad, terminos, retencion y eliminacion de datos.
+- CI con PostgreSQL, prueba integral crítica, imágenes y configuración productiva. ✓
+- Observabilidad, correlación, hardening y runbook de backup/restauración. ✓
+- Accesibilidad base y lineamientos de seguridad/privacidad. ✓
+- E2E completo, prueba de restauración en staging y aprobación legal quedan como puertas de lanzamiento.
 
 ## 8. Integraciones
 
@@ -52,4 +53,4 @@ Cada etapa termina con migracion, pruebas, documentacion de API y una demo verti
 
 ## Siguiente etapa recomendada
 
-Completar calidad comercial: pruebas integrales, CI/CD, observabilidad, accesibilidad y endurecimiento operativo.
+Preparar Google Calendar: OAuth por profesional, almacenamiento cifrado de credenciales y sincronización idempotente.

@@ -6,6 +6,9 @@
 }
 
 body { margin: 0; background: #f7f7f2; }
+.skip-link { position: fixed; z-index: 2000; top: .5rem; left: .5rem; padding: .65rem 1rem; border-radius: .4rem; color: #fff; background: #183f31; transform: translateY(-150%); }
+.skip-link:focus { transform: translateY(0); }
+:focus-visible { outline: 3px solid #bd711f; outline-offset: 3px; }
 .brand { font-size: 1.25rem; font-weight: 800; letter-spacing: -.04em; }
 .eyebrow { color: #587a68; font-size: .75rem; font-weight: 800; letter-spacing: .16em; }
 .auth-hero { background: #183f31; color: #f3f4df; min-height: 100vh; }
@@ -57,3 +60,4 @@ a { color: #246247; font-weight: 600; }
 @media (max-width: 767px) { .service-row, .public-service { align-items: flex-start; flex-direction: column; } }
 @media (max-width: 767px) { .schedule-day { grid-template-columns: 1fr; } }
 @media (max-width: 767px) { .appointment-card { align-items: flex-start; flex-direction: column; } .appointment-actions { justify-content: flex-start; } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; } }

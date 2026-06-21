@@ -24,7 +24,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: health,info,metrics
+        include: health,info,metrics,prometheus
   endpoint:
     health:
       probes:
@@ -41,6 +41,7 @@ app:
     maximum-attempts: ${NOTIFICATION_MAXIMUM_ATTEMPTS:8}
     reminder-cron: "${NOTIFICATION_REMINDER_CRON:0 */15 * * * *}"
   security:
+    allowed-origins: ${ALLOWED_ORIGINS:http://localhost:5173}
     jwt:
       secret: ${JWT_SECRET:change-this-local-secret-with-at-least-32-characters}
       expiration-seconds: 900

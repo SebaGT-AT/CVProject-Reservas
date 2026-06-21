@@ -1,0 +1,51 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-reservas}
+      POSTGRES_USER: ${POSTGRES_USER:-reservas}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD es obligatorio}
+    volumes:
+      - reservas_prod_postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build: ./backend
+    restart: unless-stopped
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      DB_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB:-reservas}
+      POSTGRES_USER: ${POSTGRES_USER:-reservas}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD es obligatorio}
+      JWT_SECRET: ${JWT_SECRET:?JWT_SECRET es obligatorio}
+      FRONTEND_URL: ${FRONTEND_URL:?FRONTEND_URL es obligatorio}
+      ALLOWED_ORIGINS: ${ALLOWED_ORIGINS:?ALLOWED_ORIGINS es obligatorio}
+      SECURE_COOKIES: "true"
+      MAIL_DELIVERY: smtp
+      MAIL_HOST: ${MAIL_HOST:?MAIL_HOST es obligatorio}
+      MAIL_PORT: ${MAIL_PORT:-587}
+      MAIL_FROM: ${MAIL_FROM:?MAIL_FROM es obligatorio}
+      SPRING_MAIL_USERNAME: ${MAIL_USERNAME:?MAIL_USERNAME es obligatorio}
+      SPRING_MAIL_PASSWORD: ${MAIL_PASSWORD:?MAIL_PASSWORD es obligatorio}
+      SPRING_MAIL_PROPERTIES_MAIL_SMTP_AUTH: "true"
+      SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_ENABLE: "true"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  frontend:
+    build: ./frontend
+    restart: unless-stopped
+    ports:
+      - "${HTTP_PORT:-80}:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+
+volumes:
+  reservas_prod_postgres:

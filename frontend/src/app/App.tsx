@@ -22,7 +22,10 @@ function ProtectedRoute({ children, role, roles }: { children: React.ReactNode; 
   return children
 }
 export function App() {
-  return <Routes>
+  return <>
+    <a className="skip-link" href="#main-content">Saltar al contenido</a>
+    <div id="main-content" tabIndex={-1}>
+    <Routes>
     <Route path="/login" element={<LoginPage />} />
     <Route path="/registro" element={<RegisterPage />} />
     <Route path="/verificar-correo" element={<VerifyEmailPage />} />
@@ -35,5 +38,7 @@ export function App() {
     <Route path="/configurar-agenda" element={<ProtectedRoute role="PROFESSIONAL"><SchedulePage /></ProtectedRoute>} />
     <Route path="/citas" element={<ProtectedRoute roles={['CUSTOMER', 'PROFESSIONAL']}><AppointmentsPage /></ProtectedRoute>} />
     <Route path="*" element={<Navigate to="/dashboard" replace />} />
-  </Routes>
+    </Routes>
+    </div>
+  </>
 }

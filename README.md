@@ -1,12 +1,11 @@
 # Reservas
 
-Plataforma comercial de reservas para profesionales independientes. El repositorio usa un monorepo con un backend modular y un frontend React.
+Plataforma comercial de reservas para profesionales independientes. El monorepo contiene una API modular Spring Boot y una aplicación React.
 
 ## Requisitos
 
-- Java 21
-- Maven 3.9+
-- Node.js 22+
+- Java 21 y Maven 3.9+
+- Node.js 24+
 - Docker Desktop
 
 ## Inicio local
@@ -29,7 +28,30 @@ npm run dev
 - API: `http://localhost:8080`
 - Frontend: `http://localhost:5173`
 - Salud: `http://localhost:8080/actuator/health`
+- Readiness: `http://localhost:8080/actuator/health/readiness`
+- Métricas Prometheus autenticadas: `http://localhost:8080/actuator/prometheus`
 
-En desarrollo, los enlaces de verificacion y recuperacion aparecen en el log del backend con el prefijo `DEV MAIL`. La configuracion SMTP está descrita en [docs/etapa-01-identidad.md](docs/etapa-01-identidad.md).
+## Verificación
 
-La guía incremental está en [docs/roadmap.md](docs/roadmap.md), la identidad en [docs/etapa-01-identidad.md](docs/etapa-01-identidad.md), los perfiles en [docs/etapa-02-profesionales-servicios.md](docs/etapa-02-profesionales-servicios.md), la disponibilidad en [docs/etapa-03-disponibilidad.md](docs/etapa-03-disponibilidad.md), las citas en [docs/etapa-04-citas.md](docs/etapa-04-citas.md), las notificaciones en [docs/etapa-05-notificaciones.md](docs/etapa-05-notificaciones.md), el dashboard en [docs/etapa-06-dashboard.md](docs/etapa-06-dashboard.md) y las decisiones técnicas en [docs/architecture.md](docs/architecture.md).
+```powershell
+cd backend
+mvn test
+mvn verify -Pintegration # requiere PostgreSQL configurado en DB_URL
+
+cd ../frontend
+npm run lint
+npm run build
+```
+
+GitHub Actions ejecuta las pruebas unitarias e integrales con PostgreSQL, valida el frontend y construye ambas imágenes. Dependabot revisa Maven, npm y Actions semanalmente.
+
+## Producción
+
+`compose.prod.yaml` exige secretos, HTTPS en CORS, cookies seguras y SMTP. No debe usarse `.env.example` en producción.
+
+```powershell
+docker compose -f compose.prod.yaml config
+docker compose -f compose.prod.yaml up -d --build
+```
+
+Consulta [docs/roadmap.md](docs/roadmap.md), [docs/architecture.md](docs/architecture.md), [docs/etapa-07-calidad-operativa.md](docs/etapa-07-calidad-operativa.md) y [docs/runbook-operaciones.md](docs/runbook-operaciones.md).
