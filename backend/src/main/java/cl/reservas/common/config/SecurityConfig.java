@@ -86,6 +86,7 @@ public class SecurityConfig {
                                 "/api/v1/auth/password/forgot", "/api/v1/auth/password/reset")
                             .permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/v1/auth/verify-email", "/actuator/health/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/v1/integrations/google-calendar/callback").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/v1/specialties", "/api/v1/professionals/**").permitAll()
                         .anyRequest().authenticated())
                 .authenticationProvider(authenticationProvider)

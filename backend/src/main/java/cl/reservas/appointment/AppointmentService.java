@@ -7,6 +7,7 @@ import cl.reservas.scheduling.*;
 import cl.reservas.user.Role;
 import cl.reservas.user.User;
 import cl.reservas.user.UserRepository;
+import cl.reservas.integration.googlecalendar.AppointmentCalendarPublisher;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,13 +28,14 @@ public class AppointmentService {
     private final UserRepository users;
     private final AvailabilityService availability;
     private final AppointmentNotificationPublisher notifications;
+    private final AppointmentCalendarPublisher calendar;
     private final Clock clock;
 
     public AppointmentService(AppointmentRepository appointments, AppointmentStatusHistoryRepository history,
                               ProfessionalProfileRepository profiles, ServiceOfferingRepository services,
                               BookingPolicyRepository policies, UserRepository users,
                               AvailabilityService availability, AppointmentNotificationPublisher notifications,
-                              Clock clock) {
+                              AppointmentCalendarPublisher calendar, Clock clock) {
         this.appointments = appointments;
         this.history = history;
         this.profiles = profiles;
@@ -42,6 +44,7 @@ public class AppointmentService {
         this.users = users;
         this.availability = availability;
         this.notifications = notifications;
+        this.calendar = calendar;
         this.clock = clock;
     }
 
@@ -77,6 +80,7 @@ public class AppointmentService {
         history.save(new AppointmentStatusHistory(appointment, null, AppointmentStatus.CONFIRMED, customer,
                 "Reserva creada por el cliente"));
         notifications.confirmed(appointment);
+        calendar.confirmed(appointment);
         return new AppointmentBookingResult(AppointmentResponse.from(appointment), true);
     }
 
@@ -111,6 +115,7 @@ public class AppointmentService {
         history.save(new AppointmentStatusHistory(appointment, previous, AppointmentStatus.CANCELLED,
                 customer, clean(request.reason())));
         notifications.cancelled(appointment);
+        calendar.cancelled(appointment);
         return AppointmentResponse.from(appointment);
     }
 
@@ -129,6 +134,8 @@ public class AppointmentService {
         history.save(new AppointmentStatusHistory(appointment, previous, request.status(), actor, reason));
         if (request.status() == AppointmentStatus.CONFIRMED) notifications.confirmed(appointment);
         if (request.status() == AppointmentStatus.CANCELLED) notifications.cancelled(appointment);
+        if (request.status() == AppointmentStatus.CONFIRMED) calendar.confirmed(appointment);
+        if (request.status() == AppointmentStatus.CANCELLED) calendar.cancelled(appointment);
         return AppointmentResponse.from(appointment);
     }
 

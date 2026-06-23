@@ -46,11 +46,12 @@ Cada etapa termina con migracion, pruebas, documentacion de API y una demo verti
 - Accesibilidad base y lineamientos de seguridad/privacidad. ✓
 - E2E completo, prueba de restauración en staging y aprobación legal quedan como puertas de lanzamiento.
 
-## 8. Integraciones
+## 8. Integraciones (Google Calendar completado)
 
-- Google Calendar OAuth y sincronizacion idempotente.
-- Webhooks y API publica versionada si el negocio lo requiere.
+- Google Calendar OAuth, cifrado de credenciales y sincronización idempotente. ✓
+- Recuperación ante revocación y reintentos mediante outbox. ✓
+- Bloqueo por eventos externos, webhooks y API pública quedan como evolución.
 
 ## Siguiente etapa recomendada
 
-Preparar Google Calendar: OAuth por profesional, almacenamiento cifrado de credenciales y sincronización idempotente.
+Preparar la etapa de lanzamiento comercial: administración, métricas de negocio, soporte, pruebas E2E y despliegue de staging.

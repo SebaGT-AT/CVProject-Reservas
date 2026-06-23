@@ -69,7 +69,9 @@ Los correos se procesan con **transactional outbox**, bloqueo `SKIP LOCKED`, ded
 
 ## Integracion con Google Calendar
 
-Queda detras de un puerto `CalendarProvider`. La cita interna es la fuente de verdad; se almacenan `externalCalendarId`, `externalEventId` y estado de sincronizacion. OAuth, reintentos e idempotencia entran en una etapa posterior sin contaminar el dominio.
+La cita interna continúa siendo la fuente de verdad. El módulo `integration.googlecalendar` contiene OAuth, cifrado y el adaptador HTTP; el dominio solo publica operaciones `UPSERT` o `DELETE` en un outbox transaccional.
+
+Los refresh tokens se cifran con AES-256-GCM. Los eventos usan un ID determinista derivado de la cita, por lo que un reintento actualiza el mismo recurso. La conexión tiene una generación propia para volver a sincronizar citas futuras cuando el profesional autoriza otra cuenta. No se almacenan access tokens ni se aceptan instrucciones entrantes desde Google en esta etapa.
 
 ## Despliegue objetivo
 

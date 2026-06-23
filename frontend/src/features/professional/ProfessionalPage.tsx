@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { ApiError, api } from '../../lib/api'
 import { useAuth } from '../auth/auth-context'
 import type { ProfessionalProfile, ServiceOffering, Specialty } from './types'
+import { GoogleCalendarCard } from './GoogleCalendarCard'
 
 type ProfileForm = { slug: string; bio: string; phone: string; timeZone: string; published: boolean }
 type ServiceForm = { name: string; description: string; durationMinutes: number; priceAmount: number; currency: string; active: boolean }
@@ -141,6 +142,8 @@ export function ProfessionalPage() {
             <button className="btn btn-primary" disabled={profileForm.formState.isSubmitting}>{profileForm.formState.isSubmitting ? 'Guardando…' : 'Guardar perfil'}</button>
           </form>
         </section>
+
+        {profile && <GoogleCalendarCard request={request} />}
 
         {profile && <section className="workspace-card" id="service-form">
           <h2>{editing ? 'Editar servicio' : 'Nuevo servicio'}</h2>

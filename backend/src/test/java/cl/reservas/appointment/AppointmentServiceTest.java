@@ -6,6 +6,7 @@ import cl.reservas.scheduling.*;
 import cl.reservas.user.Role;
 import cl.reservas.user.User;
 import cl.reservas.user.UserRepository;
+import cl.reservas.integration.googlecalendar.AppointmentCalendarPublisher;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -34,6 +35,7 @@ class AppointmentServiceTest {
     @Mock UserRepository users;
     @Mock AvailabilityService availability;
     @Mock AppointmentNotificationPublisher notifications;
+    @Mock AppointmentCalendarPublisher calendar;
     private AppointmentService appointmentService;
     private User customer;
     private ProfessionalProfile professional;
@@ -53,7 +55,7 @@ class AppointmentServiceTest {
         policy = new BookingPolicy(professional);
         policy.update(0, 30, 30, 15, 60);
         appointmentService = new AppointmentService(appointments, history, profiles, services, policies, users,
-                availability, notifications, Clock.fixed(now, ZoneOffset.UTC));
+                availability, notifications, calendar, Clock.fixed(now, ZoneOffset.UTC));
     }
 
     @Test
@@ -76,6 +78,7 @@ class AppointmentServiceTest {
         assertThat(result.appointment().priceAmount()).isEqualByComparingTo("25000");
         verify(history).save(any(AppointmentStatusHistory.class));
         verify(notifications).confirmed(any(Appointment.class));
+        verify(calendar).confirmed(any(Appointment.class));
     }
 
     @Test
@@ -121,6 +124,7 @@ class AppointmentServiceTest {
         assertThat(cancelled.cancellationReason()).isEqualTo("Cambio de planes");
         verify(history).save(any(AppointmentStatusHistory.class));
         verify(notifications).cancelled(appointment);
+        verify(calendar).cancelled(appointment);
     }
 
     @Test

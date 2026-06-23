@@ -40,6 +40,18 @@ app:
     batch-size: ${NOTIFICATION_BATCH_SIZE:20}
     maximum-attempts: ${NOTIFICATION_MAXIMUM_ATTEMPTS:8}
     reminder-cron: "${NOTIFICATION_REMINDER_CRON:0 */15 * * * *}"
+  integrations:
+    google-calendar:
+      enabled: ${GOOGLE_CALENDAR_ENABLED:false}
+      client-id: ${GOOGLE_CLIENT_ID:}
+      client-secret: ${GOOGLE_CLIENT_SECRET:}
+      redirect-uri: ${GOOGLE_REDIRECT_URI:http://localhost:8080/api/v1/integrations/google-calendar/callback}
+      frontend-result-url: ${GOOGLE_FRONTEND_RESULT_URL:http://localhost:5173/perfil-profesional}
+      token-encryption-key: ${GOOGLE_TOKEN_ENCRYPTION_KEY:bG9jYWwtZGV2LWdvb2dsZS1jYWxlbmRhci1rZXktMDE=}
+      poll-delay-ms: ${GOOGLE_SYNC_POLL_DELAY_MS:5000}
+      initial-delay-ms: ${GOOGLE_SYNC_INITIAL_DELAY_MS:10000}
+      batch-size: ${GOOGLE_SYNC_BATCH_SIZE:20}
+      maximum-attempts: ${GOOGLE_SYNC_MAXIMUM_ATTEMPTS:8}
   security:
     allowed-origins: ${ALLOWED_ORIGINS:http://localhost:5173}
     jwt:

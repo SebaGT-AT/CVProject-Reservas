@@ -40,6 +40,10 @@ public interface AppointmentRepository extends JpaRepository<Appointment, UUID> 
     List<Appointment> findAllByStatusAndStartAtBetweenOrderByStartAt(
             AppointmentStatus status, Instant from, Instant to);
 
+    @EntityGraph(attributePaths = {"professional", "professional.user", "customer", "service"})
+    List<Appointment> findAllByProfessionalIdAndStatusAndStartAtGreaterThanEqualOrderByStartAt(
+            UUID professionalId, AppointmentStatus status, Instant from);
+
     long countByProfessionalIdAndStatusInAndStartAtGreaterThanEqualAndStartAtLessThan(
             UUID professionalId, Collection<AppointmentStatus> statuses, Instant from, Instant to);
 

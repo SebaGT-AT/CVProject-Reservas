@@ -37,3 +37,11 @@ Validar migraciones, conteos de usuarios/citas, una consulta de disponibilidad y
 3. Si el binario es la causa, volver a la imagen anterior. No revertir migraciones destructivamente.
 4. Confirmar integridad de citas y reanudar el worker de notificaciones.
 5. Documentar causa, recuperación, clientes afectados y acciones preventivas.
+
+## Google Calendar
+
+- Alertar por crecimiento de `calendar_sync_outbox` en `FAILED` o `DEAD`.
+- Un error de autorización cambia la conexión a `REAUTH_REQUIRED`; el profesional debe volver a autorizarla.
+- No editar ni borrar manualmente filas del outbox. Corregir la causa y reencolar mediante una operación administrativa auditada.
+- Antes de rotar `GOOGLE_TOKEN_ENCRYPTION_KEY`, re-cifrar todos los refresh tokens. Perder la clave obliga a cada profesional a conectar su cuenta nuevamente.
+- Al desactivar la integración global, los eventos existentes permanecen en Google y dejan de recibir cambios.
