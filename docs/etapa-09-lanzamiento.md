@@ -31,7 +31,7 @@ Registrar esta acción en el sistema de cambios de infraestructura. Las modifica
 2. Crear un tag semántico, por ejemplo `v0.1.0`, y publicarlo.
 3. Esperar que `Release images` publique API y frontend en GHCR.
 4. Si los paquetes son privados, autenticar el host con un token limitado a `read:packages`: `docker login ghcr.io`.
-5. Copiar `.env.staging.example` fuera del repositorio y reemplazar todos los secretos.
+5. Copiar `.env.staging.example` fuera del repositorio y reemplazar todos los secretos. `IMAGE_NAMESPACE` debe coincidir con el owner de GHCR en minúscula.
 6. Ejecutar:
 
 ```bash

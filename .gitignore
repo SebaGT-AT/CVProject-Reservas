@@ -1,6 +1,9 @@
 .idea/
 .vscode/
 .env
+.env.*
+!.env.example
+!.env.staging.example
 *.log
 
 backend/target/
